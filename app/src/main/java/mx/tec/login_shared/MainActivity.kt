@@ -7,16 +7,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import mx.tec.login_shared.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val correctUser = "admin"
     private val correctPassword = "12345"
+    private lateinit var binding: ActivityMainBinding
     private lateinit var userText: EditText
     private lateinit var passwordText: EditText
     private lateinit var loginButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
@@ -26,7 +30,6 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         }
-
         setContentView(R.layout.activity_main)
         userText = findViewById(R.id.userText)
         passwordText = findViewById(R.id.passwordText)
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
     }
